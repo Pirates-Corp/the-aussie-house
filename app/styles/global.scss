@@ -1,9 +1,272 @@
-html, body {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
+
+// Design Tokens & CSS Variables
+:root {
+  // Brand Palette
+  --color-clay: #D35230;          // Australian Outback clay red
+  --color-sand: #E0A96D;          // Coastal warm golden sand
+  --color-sand-light: #F9F6F0;    // Soft sandstone beige (backgrounds)
+  --color-eucalyptus: #3D5B43;    // Muted gums/eucalyptus foliage green
+  --color-teal: #0F3A4B;          // Premium deep ocean teal (primary structural elements)
+  --color-teal-light: #EBF3F5;    // Muted coastal water blue/teal
+  --color-gold: #F5B041;          // Vibrant tropical sun gold (accents, star ratings)
+  --color-dark: #1A1A1A;          // Primary body text dark
+  --color-light: #FFFFFF;
+  --color-gray: #7F8C8D;
+  --color-border: #E0E6E8;
+  
+  // Shadows & Effects
+  --shadow-sm: 0 2px 4px rgba(15, 58, 75, 0.05);
+  --shadow-md: 0 8px 24px rgba(15, 58, 75, 0.08);
+  --shadow-lg: 0 16px 48px rgba(15, 58, 75, 0.12);
+  --shadow-clay: 0 8px 24px rgba(211, 82, 48, 0.2);
+  --shadow-teal: 0 8px 24px rgba(15, 58, 75, 0.2);
+  --glass-bg: rgba(255, 255, 255, 0.85);
+  --glass-border: rgba(255, 255, 255, 0.5);
+  --glass-blur: blur(12px);
+
+  // Typography
+  --font-headings: 'Outfit', sans-serif;
+  --font-body: 'Plus Jakarta Sans', sans-serif;
+  
+  // Spacing & Borders
+  --container-max: 1200px;
+  --border-radius-sm: 4px;
+  --border-radius-md: 8px;
+  --border-radius-lg: 16px;
+  --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-$primary-color: #701a93;
-$secondary-color: #2ecc71;
+// Global Resets
+html, body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: var(--font-body);
+  color: var(--color-dark);
+  background-color: var(--color-sand-light);
+  line-height: 1.6;
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+}
 
+*, *::before, *::after {
+  box-sizing: inherit;
+}
+
+// Base Typography
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-headings);
+  font-weight: 700;
+  color: var(--color-teal);
+  margin-top: 0;
+  line-height: 1.2;
+}
+
+h1 {
+  font-size: clamp(2.5rem, 5vw, 4rem);
+}
+
+h2 {
+  font-size: clamp(2rem, 4vw, 2.75rem);
+  position: relative;
+  margin-bottom: 2rem;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    width: 60px;
+    height: 4px;
+    background-color: var(--color-clay);
+    border-radius: 2px;
+  }
+  
+  &.center {
+    text-align: center;
+    &::after {
+      left: 50%;
+      transform: translateX(-50%);
+    }
+  }
+}
+
+h3 {
+  font-size: clamp(1.25rem, 3vw, 1.75rem);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: var(--transition-smooth);
+}
+
+// Reusable Utilities & Premium Layout components (Brikly-inspired structural layout)
+.container {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  width: 100%;
+}
+
+.section-padding {
+  padding: 80px 0;
+  @media (max-width: 768px) {
+    padding: 50px 0;
+  }
+}
+
+// Custom Premium Scrollbar
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-sand-light);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-teal);
+  border-radius: var(--border-radius-md);
+  border: 2px solid var(--color-sand-light);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-clay);
+}
+
+// High-end Premium Buttons
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.85rem 2rem;
+  font-family: var(--font-headings);
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: var(--border-radius-sm);
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+  box-shadow: var(--shadow-sm);
+  letter-spacing: 0.5px;
+  
+  &.btn-primary {
+    background-color: var(--color-clay);
+    color: var(--color-light);
+    box-shadow: var(--shadow-clay);
+    
+    &:hover {
+      background-color: var(--color-teal);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-teal);
+    }
+  }
+  
+  &.btn-secondary {
+    background-color: transparent;
+    color: var(--color-teal);
+    border-color: var(--color-teal);
+    
+    &:hover {
+      background-color: var(--color-teal);
+      color: var(--color-light);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-teal);
+    }
+  }
+
+  &.btn-outline-white {
+    background-color: transparent;
+    color: var(--color-light);
+    border-color: var(--color-light);
+    
+    &:hover {
+      background-color: var(--color-light);
+      color: var(--color-teal);
+      transform: translateY(-2px);
+    }
+  }
+
+  &.btn-sm {
+    padding: 0.5rem 1.25rem;
+    font-size: 0.9rem;
+  }
+}
+
+// Glassmorphism Utility
+.glass-panel {
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--shadow-md);
+}
+
+// Decorative Australian Outback Sand Wave / Boomerang Pattern
+.outback-divider {
+  height: 12px;
+  background-color: var(--color-clay);
+  position: relative;
+  overflow: hidden;
+  border-radius: 6px;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100px;
+    width: 200px;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+    animation: shine 3s infinite linear;
+  }
+}
+
+@keyframes shine {
+  0% { left: -150px; }
+  100% { left: 100%; }
+}
+
+// Subtle Animations
+.hover-lift {
+  transition: var(--transition-smooth);
+  &:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-lg) !important;
+  }
+}
+
+// Flex and Grid helpers
+.grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2.5rem;
+  align-items: center;
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+}
+
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  @media (max-width: 992px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  @media (max-width: 576px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.grid-4 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+  @media (max-width: 992px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  @media (max-width: 576px) {
+    grid-template-columns: 1fr;
+  }
+}
