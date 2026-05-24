@@ -2,6 +2,9 @@ import React from "react";
 import type { MetaFunction } from "@remix-run/node";
 import Layout from "../components/Layout/Layout";
 import styles from "./_index.module.scss";
+import seafoodImg from "../assets/imgs/seafood.jpg";
+import * as Lucide from "lucide-react";
+const { MapPin, Sun, Bed, Wifi, Handshake, Users, Snowflake, Droplet, SquareParking, BrushCleaning, Building2, Home, Plane, Key, Star, Compass } = Lucide;
 
 export const meta: MetaFunction = () => {
   return [
@@ -50,42 +53,42 @@ export default function Index() {
           <div className="grid-3">
             {/* Highlight 1: Location */}
             <div className={`${styles.highlightCard} hover-lift`}>
-              <div className={styles.highlightIcon}>📍</div>
+              <div className={styles.highlightIcon}><MapPin size={28} /></div>
               <h3>Beachside Location</h3>
               <p>Just 800 meters from Mahabalipuram Beach with quick access to pristine shores and stunning coastal breezes.</p>
             </div>
 
             {/* Highlight 2: Terrace */}
             <div className={`${styles.highlightCard} hover-lift`}>
-              <div className={styles.highlightIcon}>🌅</div>
+              <div className={styles.highlightIcon}><Sun size={28} /></div>
               <h3>Beach-View Terrace</h3>
               <p>Spacious open-air terrace perfect for glorious sunrise views and peaceful evening sea breeze relaxation.</p>
             </div>
 
             {/* Highlight 3: Rooms */}
             <div className={`${styles.highlightCard} hover-lift`}>
-              <div className={styles.highlightIcon}>🛏️</div>
+              <div className={styles.highlightIcon}><Bed size={28} /></div>
               <h3>Luxury Rooms</h3>
               <p>Thoughtfully styled Australian-themed interiors featuring cozy bedding, modern accents, and premium decor.</p>
             </div>
 
             {/* Highlight 4: WiFi */}
             <div className={`${styles.highlightCard} hover-lift`}>
-              <div className={styles.highlightIcon}>📶</div>
+              <div className={styles.highlightIcon}><Wifi size={28} /></div>
               <h3>High-Speed WiFi</h3>
               <p>Complimentary, high-speed fiber internet throughout the property ideal for leisure, streaming, or remote work.</p>
             </div>
 
             {/* Highlight 5: Hospitality */}
             <div className={`${styles.highlightCard} hover-lift`}>
-              <div className={styles.highlightIcon}>🤝</div>
+              <div className={styles.highlightIcon}><Handshake size={28} /></div>
               <h3>Premium Hospitality</h3>
               <p>Hosted by seasoned specialists with 25+ years of personal guest service expertise ensuring complete comfort.</p>
             </div>
 
             {/* Highlight 6: Audience */}
             <div className={`${styles.highlightCard} hover-lift`}>
-              <div className={styles.highlightIcon}>👨‍👩‍👧‍👦</div>
+              <div className={styles.highlightIcon}><Users size={28} /></div>
               <h3>Perfect For All</h3>
               <p>An ideal coastal destination for couples, families, digital nomads, solo wanderers, and heritage seekers.</p>
             </div>
@@ -141,25 +144,25 @@ export default function Index() {
 
           <div className="grid-4">
             <div className={`${styles.amenityCard} hover-lift`}>
-              <div className={styles.amenityIcon}>❄️</div>
+              <div className={styles.amenityIcon}><Snowflake size={32} /></div>
               <h4>Air Conditioning</h4>
               <p>Fully air-conditioned luxury rooms to stay cool after a hot day on the beach.</p>
             </div>
 
             <div className={`${styles.amenityCard} hover-lift`}>
-              <div className={styles.amenityIcon}>🚿</div>
+              <div className={styles.amenityIcon}><Droplet size={32} /></div>
               <h4>Hot Water</h4>
               <p>Modern private bathrooms with round-the-clock hot water access.</p>
             </div>
 
             <div className={`${styles.amenityCard} hover-lift`}>
-              <div className={styles.amenityIcon}>🅿️</div>
-              <h4>Free Parking</h4>
-              <p>Secure, complimentary on-site parking for all our staying guests.</p>
+              <div className={styles.amenityIcon}><SquareParking size={32} /></div>
+              <h4>Free SquareParking</h4>
+              <p>Secure, complimentary on-site SquareParking for all our staying guests.</p>
             </div>
 
             <div className={`${styles.amenityCard} hover-lift`}>
-              <div className={styles.amenityIcon}>🧹</div>
+              <div className={styles.amenityIcon}><BrushCleaning size={32} /></div>
               <h4>Housekeeping</h4>
               <p>Daily cleaning and room service maintaining the highest hygienic standards.</p>
             </div>
@@ -181,7 +184,7 @@ export default function Index() {
           <div className={styles.bookingGrid}>
             {/* Booking.com */}
             <div className={styles.otaCard + " " + styles.bookingDotCom}>
-              <div className={styles.otaLogoIcon}>🏨</div>
+              <div className={styles.otaLogoIcon}><Building2 size={32} /></div>
               <h3>Booking.com</h3>
               <p>Highly rated beachside homestay. Guaranteed best rates and instant confirmation.</p>
               <a 
@@ -196,7 +199,7 @@ export default function Index() {
 
             {/* Airbnb */}
             <div className={styles.otaCard + " " + styles.airbnb}>
-              <div className={styles.otaLogoIcon}>🏡</div>
+              <div className={styles.otaLogoIcon}><Home size={32} /></div>
               <h3>Airbnb</h3>
               <p>Superb host experience. Book cozy Australian-themed private rooms with home-like comfort.</p>
               <a 
@@ -211,7 +214,7 @@ export default function Index() {
 
             {/* Goibibo */}
             <div className={styles.otaCard + " " + styles.goibibo}>
-              <div className={styles.otaLogoIcon}>✈️</div>
+              <div className={styles.otaLogoIcon}><Plane size={32} /></div>
               <h3>Goibibo</h3>
               <p>Great deals, local wallets, and trusted Indian hotel reviews. Plan your family trip easily.</p>
               <a 
@@ -226,7 +229,7 @@ export default function Index() {
 
             {/* FVR Rentals */}
             <div className={styles.otaCard + " " + styles.fvrRentals}>
-              <div className={styles.otaLogoIcon}>🔑</div>
+              <div className={styles.otaLogoIcon}><Key size={32} /></div>
               <h3>FVR Rentals</h3>
               <p>Premium rental management integration. Ideal for extended stays and remote work packages.</p>
               <a 
@@ -253,7 +256,7 @@ export default function Index() {
               />
             </div>
             <div className={styles.founderInfo}>
-              <span className={styles.founderBadge}>⭐️ PERSONALIZED GUEST SERVICE</span>
+              <span className={styles.founderBadge}><Star size={14} /> PERSONALIZED GUEST SERVICE</span>
               <h3>Meet Your Host, Robinson</h3>
               <div className={styles.founderTitle}>Founder & Hospitality Professional (25+ Years of Service)</div>
               <p>
@@ -310,7 +313,7 @@ export default function Index() {
             {/* Attraction 3: Seafood */}
             <div className={styles.attractionCard}>
               <img 
-                src="https://images.unsplash.com/photo-1534080391025-09795d197a5b?auto=format&fit=crop&w=600&q=80" 
+                src={seafoodImg} 
                 alt="Beachfront seafood restaurants in Mahabalipuram" 
               />
               <div className={styles.attractionOverlay}>
@@ -353,7 +356,7 @@ export default function Index() {
           <div className={styles.mapCard}>
             <div className="grid-2" style={{ gap: 0 }}>
               <div className={styles.mapContent}>
-                <span>📍 Perfect Location</span>
+                <span><MapPin size={16} /> Perfect Location</span>
                 <h2>Find Us in Mahabalipuram</h2>
                 <p>
                   <strong>The Aussie House Mahabalipuram</strong><br />
