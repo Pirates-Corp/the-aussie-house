@@ -7,6 +7,9 @@ export default function App() {
   return (
     <html>
       <head>
+        <meta charSet="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>The Aussie House – Luxury Beach Homestay | Mahabalipuram</title>
         <link rel="icon" href="data:image/x-icon;base64,AA" />
         <Meta />
         <Links />
