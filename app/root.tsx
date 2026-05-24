@@ -1,5 +1,6 @@
 import React from "react";
 import { Links, Meta, Outlet, Scripts } from "@remix-run/react";
+import "./styles/global.scss";
 
 
 export default function App() {
