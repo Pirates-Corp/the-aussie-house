@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "@remix-run/react";
 import styles from "./Layout.module.scss";
+import logoImg from "../../assets/imgs/logo.png";
+import * as Lucide from "lucide-react";
+const { MapPin, Phone, Building2, Home, Plane, Key, Globe, Camera, Share2 } = Lucide;
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -38,45 +41,7 @@ export default function Layout({ children }: LayoutProps) {
           <div className={styles.navContainer}>
             {/* BRAND LOGO */}
             <Link to="/" className={styles.logo}>
-              <svg viewBox="0 0 240 50" className={styles.logoSvg}>
-                {/* Boomerang Stylized Icon */}
-                <path 
-                  d="M15 10 C 25 22, 28 35, 12 42 C 32 38, 38 25, 25 5 Z" 
-                  fill="var(--color-clay)" 
-                />
-                {/* Wave Surf Motif */}
-                <path 
-                  d="M5 38 Q 12 30, 20 38 T 35 38" 
-                  fill="none" 
-                  stroke="var(--color-sand)" 
-                  strokeWidth="3" 
-                  strokeLinecap="round"
-                />
-                {/* Sun Circle */}
-                <circle cx="32" cy="15" r="5" fill="var(--color-gold)" />
-                {/* Text Logo */}
-                <text 
-                  x="50" 
-                  y="28" 
-                  fontFamily="var(--font-headings)" 
-                  fontWeight="800" 
-                  fontSize="21" 
-                  fill="var(--color-teal)"
-                >
-                  THE AUSSIE HOUSE
-                </text>
-                <text 
-                  x="50" 
-                  y="42" 
-                  fontFamily="var(--font-body)" 
-                  fontWeight="600" 
-                  fontSize="11" 
-                  fill="var(--color-clay)" 
-                  letterSpacing="3"
-                >
-                  MAHABALIPURAM
-                </text>
-              </svg>
+              <img src={logoImg} alt="The Aussie House logo" className={styles.logoImg} /> The Aussie House
             </Link>
 
             {/* DESKTOP NAVIGATION */}
@@ -102,7 +67,12 @@ export default function Layout({ children }: LayoutProps) {
 
             {/* HEADER CTA BUTTON */}
             <div className={styles.headerCta}>
-              <a href="#booking-section" className="btn btn-primary btn-sm">
+              <a
+                href="https://www.makemytrip.com/hotels/hotel-details/?hotelId=202605182044522572&checkin=date_1&checkout=date_2&country=IN&city=CTXMB&roomStayQualifier=2e0e&openDetail=true&currency=ENG&region=IN&checkAvailability=true&locusId=CTXMB&locusType=city&homestay=true&zcp=33d9c7d80da8"
+                className="btn btn-primary btn-sm"
+                target="_blank"
+                rel="noreferrer"
+              >
                 Book Stay
               </a>
             </div>
@@ -135,7 +105,13 @@ export default function Layout({ children }: LayoutProps) {
               <Link to="/contact">Contact Us</Link>
             </li>
             <li className={styles.mobilePanelCta}>
-              <a href="#booking-section" className="btn btn-primary w-full" onClick={() => setIsMobileMenuOpen(false)}>
+              <a
+                href="https://www.makemytrip.com/hotels/hotel-details/?hotelId=202605182044522572&checkin=date_1&checkout=date_2&country=IN&city=CTXMB&roomStayQualifier=2e0e&openDetail=true&currency=ENG&region=IN&checkAvailability=true&locusId=CTXMB&locusType=city&homestay=true&zcp=33d9c7d80da8"
+                className="btn btn-primary w-full text-center"
+                onClick={() => setIsMobileMenuOpen(false)}
+                target="_blank"
+                rel="noreferrer"
+              >
                 Book Now
               </a>
             </li>
@@ -155,13 +131,7 @@ export default function Layout({ children }: LayoutProps) {
             {/* COL 1: Resort Story */}
             <div className={styles.footerCol}>
               <div className={styles.footerLogo}>
-                <svg viewBox="0 0 240 50" className={styles.logoSvg}>
-                  <path d="M15 10 C 25 22, 28 35, 12 42 C 32 38, 38 25, 25 5 Z" fill="var(--color-clay)" />
-                  <path d="M5 38 Q 12 30, 20 38 T 35 38" fill="none" stroke="var(--color-sand)" strokeWidth="3" strokeLinecap="round" />
-                  <circle cx="32" cy="15" r="5" fill="var(--color-gold)" />
-                  <text x="50" y="28" fontFamily="var(--font-headings)" fontWeight="800" fontSize="21" fill="var(--color-light)">THE AUSSIE HOUSE</text>
-                  <text x="50" y="42" fontFamily="var(--font-body)" fontWeight="600" fontSize="11" fill="var(--color-sand)" letterSpacing="3">MAHABALIPURAM</text>
-                </svg>
+                <img src={logoImg} alt="The Aussie House logo" className={styles.FTlogoImg} />
               </div>
               <p className={styles.footerDesc}>
                 Experience a refined Australian-themed luxury beachside homestay in Mahabalipuram. 
@@ -169,13 +139,13 @@ export default function Layout({ children }: LayoutProps) {
               </p>
               <div className={styles.socialLinks}>
                 <a href="https://instagram.com" target="_blank" rel="noreferrer" aria-label="Instagram">
-                  📸
+                  <Camera size={20} />
                 </a>
                 <a href="https://facebook.com" target="_blank" rel="noreferrer" aria-label="Facebook">
-                  🌐
+                  <Globe size={20} />
                 </a>
                 <a href="https://twitter.com" target="_blank" rel="noreferrer" aria-label="Twitter">
-                  🐦
+                  <Share2 size={20} />
                 </a>
               </div>
             </div>
@@ -195,12 +165,12 @@ export default function Layout({ children }: LayoutProps) {
             <div className={styles.footerCol}>
               <h3>Contact Details</h3>
               <p className={styles.footerContactInfo}>
-                📍 <strong>Address:</strong><br />
+                <MapPin size={16} /> <strong>Address:</strong><br />
                 No 1, Mayana Salai,<br />
                 Mahabalipuram, Tamil Nadu - 603104
               </p>
               <p className={styles.footerContactInfo}>
-                📞 <strong>Direct Bookings:</strong><br />
+                <Phone size={16} /> <strong>Direct Bookings:</strong><br />
                 <a href="tel:+919042444567">+91 90424 44567</a><br />
                 <a href="tel:+919884556777">+91 98845 56777</a>
               </p>
@@ -216,7 +186,7 @@ export default function Layout({ children }: LayoutProps) {
                   rel="noopener noreferrer" 
                   className={styles.otaBadge}
                 >
-                  <span className={styles.otaIcon}>🏨</span>
+                  <span className={styles.otaIcon}><Building2 size={20} /></span>
                   Booking.com
                 </a>
                 <a 
@@ -225,7 +195,7 @@ export default function Layout({ children }: LayoutProps) {
                   rel="noopener noreferrer" 
                   className={styles.otaBadge}
                 >
-                  <span className={styles.otaIcon}>🏡</span>
+                  <span className={styles.otaIcon}><Home size={20} /></span>
                   Airbnb
                 </a>
                 <a 
@@ -234,7 +204,7 @@ export default function Layout({ children }: LayoutProps) {
                   rel="noopener noreferrer" 
                   className={styles.otaBadge}
                 >
-                  <span className={styles.otaIcon}>✈️</span>
+                  <span className={styles.otaIcon}><Plane size={20} /></span>
                   Goibibo
                 </a>
                 <a 
@@ -243,7 +213,7 @@ export default function Layout({ children }: LayoutProps) {
                   rel="noopener noreferrer" 
                   className={styles.otaBadge}
                 >
-                  <span className={styles.otaIcon}>🔑</span>
+                  <span className={styles.otaIcon}><Key size={20} /></span>
                   FVR Rentals
                 </a>
               </div>
@@ -261,10 +231,17 @@ export default function Layout({ children }: LayoutProps) {
         <div className={styles.stickyCtaContainer}>
           <div className={styles.stickyCtaText}>
             <span>Luxury Aussie Beach Stay</span>
-            <strong>From ₹2,499 / Night</strong>
+            <strong>
+              <a href="tel:+919042444567" className={styles.ctaPhone}>
+                Contact +91 90424 44567
+              </a>
+            </strong>
           </div>
-          <a href="#booking-section" className="btn btn-primary btn-sm">
-            Book Now
+          <a
+            href="tel:+919042444567"
+            className="btn btn-primary btn-sm"
+          >
+            Call Now
           </a>
         </div>
       </div>

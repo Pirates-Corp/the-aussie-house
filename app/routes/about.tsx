@@ -2,6 +2,8 @@ import React from "react";
 import type { MetaFunction } from "@remix-run/node";
 import Layout from "../components/Layout/Layout";
 import styles from "./about.module.scss";
+import * as Lucide from "lucide-react";
+const { Heart, Users, Compass } = Lucide;
 
 export const meta: MetaFunction = () => {
   return [
@@ -110,7 +112,7 @@ export default function About() {
             <div className={styles.occasionCard}>
               <div className={styles.occasionImage}>
                 <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=500&q=80" alt="Romantic Getaway Aussie House" />
-                <div className={styles.occasionIconBg}>❤️</div>
+                <div className={styles.occasionIconBg}><Heart size={24} /></div>
               </div>
               <div className={styles.occasionContent}>
                 <h3>Romantic Getaways</h3>
@@ -122,7 +124,7 @@ export default function About() {
             <div className={styles.occasionCard}>
               <div className={styles.occasionImage}>
                 <img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=500&q=80" alt="Family Vacation Aussie House" />
-                <div className={styles.occasionIconBg}>👨‍👩‍👧‍👦</div>
+                <div className={styles.occasionIconBg}><Users size={24} /></div>
               </div>
               <div className={styles.occasionContent}>
                 <h3>Family Vacations</h3>
@@ -134,7 +136,7 @@ export default function About() {
             <div className={styles.occasionCard}>
               <div className={styles.occasionImage}>
                 <img src="https://images.unsplash.com/photo-1506973035872-a4ec16b8e8d9?auto=format&fit=crop&w=500&q=80" alt="Solo Traveler Aussie House" />
-                <div className={styles.occasionIconBg}>🧭</div>
+                <div className={styles.occasionIconBg}><Compass size={24} /></div>
               </div>
               <div className={styles.occasionContent}>
                 <h3>Solo Travelers</h3>

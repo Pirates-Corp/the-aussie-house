@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import type { MetaFunction } from "@remix-run/node";
 import Layout from "../components/Layout/Layout";
 import styles from "./contact.module.scss";
+import * as Lucide from "lucide-react";
+const { Phone, User, MapPin } = Lucide;
 
 export const meta: MetaFunction = () => {
   return [
@@ -145,24 +147,24 @@ export default function Contact() {
               
               {/* Direct Booking Card */}
               <div className={styles.infoCard}>
-                <h3>📞 Book Your Stay Today</h3>
+                <h3><Phone size={18} /> Book Your Stay Today</h3>
                 <p>
                   Experience a peaceful coastal stay with comfortable rooms, friendly hospitality, and easy access 
                   to Mahabalipuram beach and tourist attractions. Call our direct helpline to check real-time availability:
                 </p>
                 <div className={styles.phoneList}>
                   <div className={styles.phoneItem}>
-                    📱 <a href="tel:+919042444567">+91 90424 44567</a>
+                    <Phone size={18} /> <a href="tel:+919042444567">+91 90424 44567</a>
                   </div>
                   <div className={styles.phoneItem}>
-                    📱 <a href="tel:+919884556777">+91 98845 56777</a>
+                    <Phone size={18} /> <a href="tel:+919884556777">+91 98845 56777</a>
                   </div>
                 </div>
               </div>
 
               {/* Host/Founder Card */}
               <div className={`${styles.infoCard} ${styles.hostCard}`}>
-                <h3>👤 Superb Local Host</h3>
+                <h3><User size={18} /> Superb Local Host</h3>
                 <p>
                   <strong>Robinson</strong><br />
                   Our properties are supervised directly by Robinson, bringing <strong>25+ Years of hospitality expertise</strong> to your stay. 
@@ -172,7 +174,7 @@ export default function Contact() {
 
               {/* Address Card */}
               <div className={styles.infoCard}>
-                <h3>📍 Resort Location</h3>
+                <h3><MapPin size={18} /> Resort Location</h3>
                 <p>
                   <strong>The Aussie House Mahabalipuram</strong><br />
                   No 1, Mayana Salai,<br />
