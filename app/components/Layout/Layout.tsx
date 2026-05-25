@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "@remix-run/react";
 import styles from "./Layout.module.scss";
-import logoImg from "../../assets/imgs/logo.png";
+import logoImg from "../../assets/imgs/Logo.png";
 import * as Lucide from "lucide-react";
 const { MapPin, Phone, Building2, Home, Plane, Key, Globe, Camera, Share2 } = Lucide;
 
