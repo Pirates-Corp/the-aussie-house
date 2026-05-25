@@ -12,7 +12,7 @@
     "start:prod": "remix-serve build/server/index.js",
     "start:devbranch": "set PORT=4021 && npx remix-serve ./build/server/index.js",
     "start:uatbranch": "set PORT=5021 && npx remix-serve ./build/server/index.js",
-    "start:mainbranch": "set PORT=3021 && npx remix-serve ./build/server/index.js"
+    "start:mainbranch": "set PORT=3071 && npx remix-serve ./build/server/index.js"
   },
   "keywords": [],
   "author": "",
