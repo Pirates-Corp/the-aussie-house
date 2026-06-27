@@ -62,6 +62,11 @@ export default function Layout({ children }: LayoutProps) {
                     Contact Us
                   </Link>
                 </li>
+                <li>
+                  <Link to="/gallery" className={location.pathname === "/gallery" ? styles.active : ""}>
+                    Gallery
+                  </Link>
+                </li>
               </ul>
             </nav>
 
@@ -103,6 +108,9 @@ export default function Layout({ children }: LayoutProps) {
             </li>
             <li>
               <Link to="/contact">Contact Us</Link>
+            </li>
+            <li>
+              <Link to="/gallery">Gallery</Link>
             </li>
             <li className={styles.mobilePanelCta}>
               <a
@@ -157,6 +165,7 @@ export default function Layout({ children }: LayoutProps) {
                 <li><Link to="/">Home</Link></li>
                 <li><Link to="/about">About Us</Link></li>
                 <li><Link to="/contact">Contact Us</Link></li>
+                <li><Link to="/gallery">Gallery</Link></li>
                 <li><a href="#booking-section">Book Room</a></li>
               </ul>
             </div>
