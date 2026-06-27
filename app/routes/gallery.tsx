@@ -124,13 +124,32 @@ export default function Gallery() {
 
         <div className="container">
           <div className={styles.heroContent}>
-            <span>🇦🇺 Visual Heritage Tour</span>
+            <span className={styles.badge}>🇦🇺 Visual Heritage Tour</span>
             <h1>Our Gallery</h1>
             <p>
               Explore the beautifully designed spaces, luxury beachside rooms,
               and warm coastal interiors of The Aussie House Mahabalipuram.
             </p>
           </div>
+        </div>
+
+        <div className={styles.waveContainer}>
+          <svg
+            viewBox="0 0 1440 120"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            preserveAspectRatio="none"
+            className={styles.svgWave}
+          >
+            <path
+              d="M0,32L120,42.7C240,53,480,75,720,74.7C960,75,1200,53,1320,42.7L1440,32L1440,120L1320,120C1200,120,960,120,720,120C480,120,240,120,120,120L0,120Z"
+              fill="#e05b26"
+            />
+            <path
+              d="M0,45L120,41.7C240,38,480,31,720,35C960,39,1200,53,1320,60.3L1440,68L1440,120L1320,120C1200,120,960,120,720,120C480,120,240,120,120,120L0,120Z"
+              fill="var(--color-sand-light)"
+            />
+          </svg>
         </div>
       </section>
 

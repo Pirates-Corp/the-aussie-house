@@ -1,38 +1,15 @@
-//  1. HERO BANNER SECTION (Video, Overlays & Curved Wave Effects)
+// HERO BANNER SECTION (Video, Overlays & Curved Wave Effects)
 .hero {
   position: relative;
-  min-height: 50vh;
+  height: 75vh;
+  min-height: 550px;
   display: flex;
   align-items: center;
   justify-content: center;
   color: var(--color-light);
   text-align: center;
-  padding: 100px 0;
   overflow: hidden;
-
-  &::before {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 66px;
-    background-color: #e05b26;
-    clip-path: ellipse(60% 80% at 50% 100%);
-    z-index: 3;
-  }
-
-  &::after {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 60px;
-    background-color: var(--color-sand-light);
-    clip-path: ellipse(60% 80% at 50% 100%);
-    z-index: 4;
-  }
+  background-color: #0b222c;
 }
 
 .heroVideo {
@@ -43,6 +20,7 @@
   height: 100%;
   object-fit: cover;
   z-index: 1;
+  transform: scale(1.02);
 }
 
 .heroOverlay {
@@ -53,51 +31,72 @@
   height: 100%;
   background: linear-gradient(
     180deg,
-    rgba(15, 58, 75, 0.65) 0%,
-    rgba(15, 58, 75, 0.45) 100%
+    rgba(11, 34, 44, 0.8) 0%,
+    rgba(11, 34, 44, 0.4) 60%,
+    rgba(224, 91, 38, 0.15) 100%
   );
   z-index: 2;
 }
 
 .heroContent {
   position: relative;
-  z-index: 3;
+  z-index: 4;
   max-width: 850px;
   margin: 0 auto;
+  padding: 0 20px;
+  transform: translateY(-30px);
 
-  span {
+  .badge {
     font-family: var(--font-headings);
-    font-size: 1.1rem;
+    font-size: 1rem;
     font-weight: 700;
     color: var(--color-sand);
     text-transform: uppercase;
     letter-spacing: 3px;
     display: inline-block;
-    margin-bottom: 1.25rem;
-    border-bottom: 2px solid var(--color-clay);
+    margin-bottom: 1.5rem;
+    border-bottom: 2px solid #e05b26;
     padding-bottom: 0.5rem;
   }
 
   h1 {
     color: var(--color-light);
-    font-size: clamp(2.5rem, 5vw, 3.5rem);
+    font-size: clamp(2.8rem, 6vw, 4.2rem);
     font-weight: 800;
-    line-height: 1.15;
-    margin-bottom: 1rem;
-    text-shadow: 0 4px 12px rgba(15, 58, 75, 0.3);
+    line-height: 1.1;
+    margin-bottom: 1.25rem;
+    text-shadow: 0 4px 20px rgba(11, 34, 44, 0.6);
+    letter-spacing: -1px;
   }
 
   p {
-    font-size: clamp(1.05rem, 2vw, 1.2rem);
-    line-height: 1.7;
-    color: rgba(255, 255, 255, 0.9);
-    max-width: 600px;
+    font-size: clamp(1.1rem, 2.2vw, 1.35rem);
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.95);
+    max-width: 650px;
     margin: 0 auto;
     font-weight: 400;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
   }
 }
 
-//  2. MAIN COLLECTION GRID SECTION (Responsive Layouts & Interactive Cards)
+.waveContainer {
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 110px;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.svgWave {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+//  MAIN COLLECTION GRID SECTION (Responsive Layouts & Interactive Cards)
 .gridSection {
   background-color: var(--color-sand-light);
 }
@@ -211,7 +210,7 @@
   }
 }
 
-//  3. POPUP MODAL
+//  POPUP MODAL
 .modal {
   position: fixed;
   top: 0;
@@ -345,7 +344,7 @@
   will-change: transform, opacity;
 }
 
-//  4. KEYFRAMES PERFORMANCE MOTION SYSTEM (Fluid Accelerations)
+//  KEYFRAMES PERFORMANCE MOTION SYSTEM (Fluid Accelerations)
 @keyframes fadeInOverlay {
   from {
     opacity: 0;
@@ -368,11 +367,20 @@
   }
 }
 
-//  5. RESPONSIVE BREAKPOINT TRANSLATIONS (Fluid Mobile Adapters)
+//  RESPONSIVE BREAKPOINT TRANSLATIONS (Fluid Mobile Adapters)
 @media (max-width: 768px) {
   .hero {
-    min-height: 40vh;
-    padding: 80px 0;
+    height: 60vh;
+    min-height: 450px;
+    padding: 0;
+  }
+
+  .heroContent {
+    transform: translateY(-15px);
+  }
+
+  .waveContainer {
+    height: 75px;
   }
 
   .counterBadge {
@@ -410,8 +418,17 @@
 
 @media (max-width: 576px) {
   .hero {
-    min-height: 35vh;
-    padding: 70px 0;
+    height: 55vh;
+    min-height: 380px;
+    padding: 0;
+  }
+
+  .heroContent {
+    transform: translateY(-10px);
+  }
+
+  .waveContainer {
+    height: 55px;
   }
 
   .sectionHeader {
