@@ -21,22 +21,42 @@ export const meta: MetaFunction = () => {
   ];
 };
 
-// IMAGE DATA CONFIGURATION
 const TOTAL_IMAGES = 57;
+const ABOVE_FOLD_COUNT = 8; // First two rows
+
+// Responsive modal source URL mapping structure
+interface ResponsiveModalSrc {
+  mobile: string;
+  tablet: string;
+  desktop: string;
+}
 
 const GALLERY_IMAGES = Array.from({ length: TOTAL_IMAGES }, (_, i) => {
   const num = i + 1;
   return {
     id: num,
-    src: `/assets/imgs/gallery/websiteImagesAussie/house-${num}.jpg.webp`,
+    // Responsive grid WebP thumbnails
+    thumbMobile: `/assets/imgs/gallery/optimized/thumbs/mobile/house-${num}.jpg.webp`,
+    thumbTablet: `/assets/imgs/gallery/optimized/thumbs/tablet/house-${num}.jpg.webp`,
+    thumbDesktop: `/assets/imgs/gallery/optimized/thumbs/desktop/house-${num}.jpg.webp`,
+
+    // Responsive full size modal WebP images
+    modalMobile: `/assets/imgs/gallery/optimized/modal/mobile/house-${num}.jpg.webp`,
+    modalTablet: `/assets/imgs/gallery/optimized/modal/tablet/house-${num}.jpg.webp`,
+    modalDesktop: `/assets/imgs/gallery/optimized/modal/desktop/house-${num}.jpg.webp`,
+
     alt: `The Aussie House Mahabalipuram — Property view ${num}`,
   };
 });
 
 export default function Gallery() {
-  const [zoomedSrc, setZoomedSrc] = useState<string | null>(null);
+  // zoomedSrc holds the URL mapping object for active theater view modal
+  const [zoomedSrc, setZoomedSrc] = useState<ResponsiveModalSrc | null>(null);
 
-  const openModal = useCallback((src: string) => {
+  // Video cinema modal state — loads original HD video
+  const [videoModalOpen, setVideoModalOpen] = useState(false);
+
+  const openModal = useCallback((src: ResponsiveModalSrc) => {
     setZoomedSrc(src);
   }, []);
 
@@ -44,35 +64,44 @@ export default function Gallery() {
     setZoomedSrc(null);
   }, []);
 
+  // Modal navigation controls using relative fullSrc indexing
   const nextImage = useCallback(() => {
     if (!zoomedSrc) return;
-    const currentIndex = GALLERY_IMAGES.findIndex(
-      (img) => img.src === zoomedSrc,
+    const idx = GALLERY_IMAGES.findIndex(
+      (img) => img.modalDesktop === zoomedSrc.desktop,
     );
-    const nextIndex = (currentIndex + 1) % GALLERY_IMAGES.length;
-    setZoomedSrc(GALLERY_IMAGES[nextIndex].src);
+    const nextIdx = (idx + 1) % GALLERY_IMAGES.length;
+    const nextImg = GALLERY_IMAGES[nextIdx];
+    setZoomedSrc({
+      mobile: nextImg.modalMobile,
+      tablet: nextImg.modalTablet,
+      desktop: nextImg.modalDesktop,
+    });
   }, [zoomedSrc]);
 
   const prevImage = useCallback(() => {
     if (!zoomedSrc) return;
-    const currentIndex = GALLERY_IMAGES.findIndex(
-      (img) => img.src === zoomedSrc,
+    const idx = GALLERY_IMAGES.findIndex(
+      (img) => img.modalDesktop === zoomedSrc.desktop,
     );
-    const prevIndex =
-      (currentIndex - 1 + GALLERY_IMAGES.length) % GALLERY_IMAGES.length;
-    setZoomedSrc(GALLERY_IMAGES[prevIndex].src);
+    const prevIdx = (idx - 1 + GALLERY_IMAGES.length) % GALLERY_IMAGES.length;
+    const prevImg = GALLERY_IMAGES[prevIdx];
+    setZoomedSrc({
+      mobile: prevImg.modalMobile,
+      tablet: prevImg.modalTablet,
+      desktop: prevImg.modalDesktop,
+    });
   }, [zoomedSrc]);
 
-  // DYNAMIC COUNTER LOGIC
   const currentCountText = useMemo(() => {
     if (!zoomedSrc) return "";
-    const currentIndex = GALLERY_IMAGES.findIndex(
-      (img) => img.src === zoomedSrc,
+    const idx = GALLERY_IMAGES.findIndex(
+      (img) => img.modalDesktop === zoomedSrc.desktop,
     );
-    return `${currentIndex + 1} / ${GALLERY_IMAGES.length}`;
+    return `${idx + 1} / ${GALLERY_IMAGES.length}`;
   }, [zoomedSrc]);
 
-  //  KEYBOARD NAVIGATION EFFECT
+  // Image modal keyboard listeners + scroll lock
   useEffect(() => {
     if (!zoomedSrc) return;
 
@@ -91,12 +120,27 @@ export default function Gallery() {
     };
   }, [zoomedSrc, closeModal, nextImage, prevImage]);
 
+  // Video cinema modal: ESC key + scroll lock
+  useEffect(() => {
+    if (!videoModalOpen) return;
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setVideoModalOpen(false);
+    };
+
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.body.style.overflow = "";
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [videoModalOpen]);
+
   const handleImageError = (e: React.SyntheticEvent<HTMLImageElement>) => {
     const img = e.currentTarget;
-    const currentSrc = img.src;
-
-    if (currentSrc.endsWith(".jpg.webp")) {
-      img.src = currentSrc.replace(".jpg.webp", ".jpg");
+    if (img.src.endsWith(".jpg.webp")) {
+      img.src = img.src.replace(".jpg.webp", ".jpg");
     } else {
       img.src =
         "https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf" +
@@ -107,7 +151,7 @@ export default function Gallery() {
 
   return (
     <Layout>
-      {/* HERO  */}
+      {/* SECTION 1: HERO CONTAINER */}
       <section className={styles.hero}>
         <video
           className={styles.heroVideo}
@@ -115,9 +159,24 @@ export default function Gallery() {
           loop
           muted
           playsInline
-          poster="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1920&q=80"
+          preload="auto"
+          poster="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1200&q=80"
         >
-          <source src="/assets/videos/gallery-hero.mp4" type="video/mp4" />
+          <source
+            src="/assets/videos/gallery-hero-desktop.mp4"
+            type="video/mp4"
+            media="(min-width: 993px)"
+          />
+          <source
+            src="/assets/videos/gallery-hero-tablet.mp4"
+            type="video/mp4"
+            media="(min-width: 577px) and (max-width: 992px)"
+          />
+          <source
+            src="/assets/videos/gallery-hero-mobile.mp4"
+            type="video/mp4"
+            media="(max-width: 576px)"
+          />
         </video>
 
         <div className={styles.heroOverlay} />
@@ -130,6 +189,16 @@ export default function Gallery() {
               Explore the beautifully designed spaces, luxury beachside rooms,
               and warm coastal interiors of The Aussie House Mahabalipuram.
             </p>
+
+            {/* Premium Watch CTA */}
+            <button
+              className={styles.watchCta}
+              onClick={() => setVideoModalOpen(true)}
+              aria-label="Watch the full Aussie House experience video"
+            >
+              <span className={styles.watchCtaIcon}>▶</span>
+              <span className={styles.watchCtaText}>Watch Experience</span>
+            </button>
           </div>
         </div>
 
@@ -153,7 +222,40 @@ export default function Gallery() {
         </div>
       </section>
 
-      {/* SQUARE GRID */}
+      {/* CINEMATIC VIDEO PLAYER MODAL — loads original */}
+      {videoModalOpen && (
+        <div
+          className={styles.videoModal}
+          onClick={() => setVideoModalOpen(false)}
+          role="dialog"
+          aria-modal="true"
+          aria-label="Full cinematic video experience"
+        >
+          <button
+            className={styles.videoModalClose}
+            onClick={() => setVideoModalOpen(false)}
+            aria-label="Close video player"
+          >
+            ✕ Close
+          </button>
+
+          <div
+            className={styles.videoModalFrame}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <video
+              className={styles.videoPlayer}
+              src="/assets/videos/gallery-hero-original.mp4"
+              controls
+              autoPlay
+              playsInline
+              preload="metadata"
+            />
+          </div>
+        </div>
+      )}
+
+      {/* SECTION 2: CURATED GALLERY GRID (1:1 aspect-ratio, lazy loading WebP) */}
       <section className={`section-padding ${styles.gridSection}`}>
         <div className="container">
           <div className={styles.sectionHeader}>
@@ -165,29 +267,46 @@ export default function Gallery() {
           </div>
 
           <div className={styles.grid}>
-            {GALLERY_IMAGES.map((img) => (
+            {GALLERY_IMAGES.map((img, index) => (
               <div
                 key={img.id}
                 className={styles.card}
-                onClick={() => openModal(img.src)}
+                onClick={() =>
+                  openModal({
+                    mobile: img.modalMobile,
+                    tablet: img.modalTablet,
+                    desktop: img.modalDesktop,
+                  })
+                }
                 role="button"
                 tabIndex={0}
                 onKeyDown={(e) => {
                   if (e.key === "Enter" || e.key === " ") {
                     e.preventDefault();
-                    openModal(img.src);
+                    openModal({
+                      mobile: img.modalMobile,
+                      tablet: img.modalTablet,
+                      desktop: img.modalDesktop,
+                    });
                   }
                 }}
                 aria-label={`View image ${img.id} in full screen`}
               >
                 <div className={styles.aspectBox}>
                   <img
-                    src={img.src}
+                    src={img.thumbDesktop}
+                    srcSet={`${img.thumbMobile} 360w, ${img.thumbTablet} 480w, ${img.thumbDesktop} 640w`}
+                    sizes="(max-width: 576px) 50vw, (max-width: 992px) 33vw, 25vw"
                     alt={img.alt}
-                    loading="lazy"
+                    loading={index < ABOVE_FOLD_COUNT ? "eager" : "lazy"}
+                    decoding="async"
+                    fetchPriority={index < ABOVE_FOLD_COUNT ? "high" : "low"}
+                    width={600}
+                    height={600}
                     className={styles.image}
                     onError={handleImageError}
                   />
+
                   <div className={styles.hoverOverlay}>
                     <span>View</span>
                   </div>
@@ -198,7 +317,7 @@ export default function Gallery() {
         </div>
       </section>
 
-      {/* SINGLE IMAGE ZOOM MODAL WITH  NAVIGATION & COUNTER */}
+      {/* SECTION 3: ZOOM LIGHTBOX */}
       {zoomedSrc && (
         <div
           className={styles.modal}
@@ -233,9 +352,12 @@ export default function Gallery() {
             onClick={(e) => e.stopPropagation()}
           >
             <img
-              src={zoomedSrc}
+              src={zoomedSrc.desktop}
+              srcSet={`${zoomedSrc.mobile} 900w, ${zoomedSrc.tablet} 1200w, ${zoomedSrc.desktop} 1600w`}
+              sizes="90vw"
               alt="The Aussie House — full view"
               className={styles.modalImage}
+              decoding="async"
               onError={handleImageError}
             />
           </div>
