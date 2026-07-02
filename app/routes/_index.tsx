@@ -27,11 +27,9 @@ const {
 } = Lucide;
 
 // Carousel images from the property gallery
-const CAROUSEL_IMAGES = [
-   22, 19, 25, 30, 35, 40, 45, 50, 55,
-].map((num) => ({
+const CAROUSEL_IMAGES = [22, 19, 25, 30, 35, 40, 45, 50, 55].map((num) => ({
   id: num,
-  src: `/assets/imgs/gallery/websiteImagesAussie/house-${num}.jpg.webp`,
+  src: `/assets/imgs/gallery/originalImage/house-${num}.webp`,
   alt: `The Aussie House Mahabalipuram — Property view ${num}`,
 }));
 
@@ -65,8 +63,14 @@ export default function Index() {
     [totalSlides],
   );
 
-  const nextSlide = useCallback(() => goToSlide(currentSlide + 1), [currentSlide, goToSlide]);
-  const prevSlide = useCallback(() => goToSlide(currentSlide - 1), [currentSlide, goToSlide]);
+  const nextSlide = useCallback(
+    () => goToSlide(currentSlide + 1),
+    [currentSlide, goToSlide],
+  );
+  const prevSlide = useCallback(
+    () => goToSlide(currentSlide - 1),
+    [currentSlide, goToSlide],
+  );
 
   // Auto-play
   useEffect(() => {
@@ -96,9 +100,25 @@ export default function Index() {
     <Layout>
       {/* 1. HERO SECTION WITH SEAMLESS BRANDING */}
       <section className={styles.heroSection}>
+        <video
+          className={styles.heroVideo}
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="metadata"
+          aria-hidden="true"
+        >
+          <source
+            src="/assets/videos/home/originalVideos/heroTeaser.mp4"
+            type="video/mp4"
+          />
+        </video>
+
         <div className="container">
           <div className={styles.heroContent}>
             <span>🇦🇺 Warm Australian Coastal Living</span>
+
             <h1>The Aussie House Mahabalipuram</h1>
 
             <div className="hero-cta-buttons">
@@ -206,7 +226,7 @@ export default function Index() {
               className={`${styles.accomImageWrapper} ${styles.surfingRibbon}`}
             >
               <img
-                src="/assets/imgs/gallery/websiteImagesAussie/house-19.jpg.webp"
+                src="/assets/imgs/gallery/originalImage/house-19.webp"
                 alt="Luxury Rooms at The Aussie House Resort Mahabalipuram"
               />
             </div>
