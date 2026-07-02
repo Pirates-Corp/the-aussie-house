@@ -115,6 +115,9 @@ export default function Index() {
           />
         </video>
 
+        {/* HERO CINEMATIC OVERLAY */}
+        <div className={styles.heroOverlay} aria-hidden="true" />
+
         <div className="container">
           <div className={styles.heroContent}>
             <span>🇦🇺 Warm Australian Coastal Living</span>
