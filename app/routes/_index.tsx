@@ -7,6 +7,7 @@ import seafoodImg from "../assets/imgs/seafood.jpg";
 import shoreTemple from "../assets/imgs/shore-temple.jpeg";
 
 import * as Lucide from "lucide-react";
+import { FaInstagram , FaFacebook } from "react-icons/fa";
 const {
   MapPin,
   Sun,
@@ -23,7 +24,7 @@ const {
   Plane,
   Key,
   Star,
-  Compass,
+  Compass
 } = Lucide;
 
 // Carousel images from the property gallery
@@ -127,6 +128,25 @@ export default function Index() {
             <div className="hero-cta-buttons">
               <a href="#booking-section" className="btn btn-primary">
                 Book Your Beach Stay
+              </a>
+            </div>
+
+            <div className={styles.heroSocialLinks}>
+              <a
+                href="https://www.instagram.com/the.aussie.house?igsh=czdranl6eTRxMWFv"
+                target="_blank"
+                rel="noreferrer"
+                aria-label="Instagram"
+              >
+                <FaInstagram size={18} />
+              </a>
+              <a
+                href="https://www.facebook.com/share/1LqAd4F7L4/?mibextid=wwXIfr"
+                target="_blank"
+                rel="noreferrer"
+                aria-label="Facebook"
+              >
+                <FaFacebook size={18} />
               </a>
             </div>
           </div>
