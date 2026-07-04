@@ -14,22 +14,28 @@ export const meta: MetaFunction = () => {
   ];
 };
 
-const TOTAL_IMAGES = 57;
-
 interface GalleryImage {
   id: number;
   src: string;
   alt: string;
 }
 
-const GALLERY_IMAGES: GalleryImage[] = Array.from(
-  { length: TOTAL_IMAGES },
-  (_, i) => ({
-    id: i + 1,
-    src: `/assets/imgs/gallery/originalImage/house-${i + 1}.webp`,
-    alt: `The Aussie House Property View ${i + 1}`,
-  }),
-);
+/*
+  Removed images:
+  1,2,3,4,5,7, 11,13,14,15,16
+*/
+
+const AVAILABLE_IMAGES = [
+  6, 8, 9, 10, 12, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31,
+  32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50,
+  51, 52, 53, 54, 55, 56, 57,
+];
+
+const GALLERY_IMAGES: GalleryImage[] = AVAILABLE_IMAGES.map((imageNo) => ({
+  id: imageNo,
+  src: `/assets/imgs/gallery/originalImage/house-${imageNo}.webp`,
+  alt: `The Aussie House Property View ${imageNo}`,
+}));
 
 export default function Gallery() {
   const [zoomedSrc, setZoomedSrc] = useState<string | null>(null);
@@ -91,7 +97,6 @@ export default function Gallery() {
   return (
     <Layout>
       {/* HERO */}
-
       <section className={styles.hero}>
         <video
           className={styles.heroVideo}
@@ -111,22 +116,82 @@ export default function Gallery() {
         <div className={styles.heroOverlay} />
 
         <div className={styles.heroContent}>
+          <span className={styles.badge}>🇦🇺 Visual Heritage Tour</span>
+
           <h1>Our Gallery</h1>
 
-          <p>Explore The Aussie House</p>
+          <p>
+            Explore the beautifully designed spaces, luxury beachside rooms, and
+            warm coastal interiors of The Aussie House Mahabalipuram.
+          </p>
 
           <button
             className={styles.watchBtn}
             onClick={() => setVideoModalOpen(true)}
           >
-            ▶ Watch Experience
+            <span className={styles.watchIcon}>
+              <span className={styles.playTriangle}>▶</span>
+            </span>
+
+            <span className={styles.watchText}>Watch Experience</span>
           </button>
+        </div>
+
+        <div className={styles.heroWave}>
+          <svg
+            viewBox="0 0 1440 120"
+            preserveAspectRatio="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <defs>
+              <linearGradient
+                id="waveBrandGradient"
+                x1="0%"
+                y1="0%"
+                x2="100%"
+                y2="0%"
+              >
+                <stop offset="0%" stopColor="rgba(224, 91, 38, 0)" />
+                <stop offset="15%" stopColor="var(--color-clay)" />
+                <stop offset="50%" stopColor="rgba(255, 210, 170, 0.95)" />
+                <stop offset="85%" stopColor="var(--color-clay)" />
+                <stop offset="100%" stopColor="rgba(224, 91, 38, 0)" />
+              </linearGradient>
+            </defs>
+            <path
+              fill="#f7f5f1"
+              d="
+        M0,55
+        C180,100 340,20 540,55
+        C760,95 980,120 1200,55
+        C1320,20 1400,35 1440,40
+        L1440,120
+        L0,120
+        Z
+      "
+            />
+            <path
+              d="M0,55 C180,100 340,20 540,55 C760,95 980,120 1200,55 C1320,20 1400,35 1440,40"
+              fill="none"
+              stroke="url(#waveBrandGradient)"
+              strokeWidth="2"
+              className={styles.waveStrokePath}
+            />
+          </svg>
         </div>
       </section>
 
       {/* GRID */}
-
       <section className={styles.gridSection}>
+        <div className={styles.sectionHeader}>
+          <h2 className="center">The Aussie House Collection</h2>
+
+          <p>
+            A curated showcase of our premium beachside property. Click any
+            image to view in immersive theater mode.
+          </p>
+        </div>
+
         <div className={styles.grid}>
           {GALLERY_IMAGES.map((img) => (
             <div
@@ -154,21 +219,31 @@ export default function Gallery() {
       </section>
 
       {/* IMAGE MODAL */}
-
       {zoomedSrc && (
-        <div className={styles.modal} onClick={closeModal}>
-          <div className={styles.counter}>{currentCount}</div>
+        <div
+          className={styles.modal}
+          onClick={closeModal}
+          role="dialog"
+          aria-modal="true"
+        >
+          <div className={styles.counterBadge}>{currentCount}</div>
 
-          <button className={styles.close} onClick={closeModal}>
-            ✕
+          <button
+            className={styles.closeBtn}
+            onClick={closeModal}
+            aria-label="Close gallery"
+          >
+            <span className={styles.closeIcon}>✕</span>
+            <span>Close</span>
           </button>
 
           <button
-            className={styles.prev}
+            className={`${styles.navBtn} ${styles.prevBtn}`}
             onClick={(e) => {
               e.stopPropagation();
               prevImage();
             }}
+            aria-label="Previous image"
           >
             ‹
           </button>
@@ -178,20 +253,22 @@ export default function Gallery() {
             onClick={(e) => e.stopPropagation()}
           >
             <img
+              key={zoomedSrc}
               src={zoomedSrc}
-              className={styles.modalImage}
               alt="Gallery Image"
+              className={styles.modalImage}
               loading="eager"
               decoding="async"
             />
           </div>
 
           <button
-            className={styles.next}
+            className={`${styles.navBtn} ${styles.nextBtn}`}
             onClick={(e) => {
               e.stopPropagation();
               nextImage();
             }}
+            aria-label="Next image"
           >
             ›
           </button>
@@ -199,24 +276,32 @@ export default function Gallery() {
       )}
 
       {/* VIDEO MODAL */}
-
       {videoModalOpen && (
         <div
-          className={styles.videoModal}
+          className={styles.modal}
           onClick={() => setVideoModalOpen(false)}
+          role="dialog"
+          aria-modal="true"
         >
           <button
-            className={styles.close}
+            className={styles.closeBtn}
             onClick={() => setVideoModalOpen(false)}
+            aria-label="Close video"
           >
-            ✕ Close
+            <span className={styles.closeIcon}>✕</span>
+            <span>Close</span>
           </button>
 
           <div
-            className={styles.videoFrame}
+            className={styles.videoModalFrame}
             onClick={(e) => e.stopPropagation()}
           >
-            <video controls autoPlay preload="auto" className={styles.video}>
+            <video
+              controls
+              autoPlay
+              preload="auto"
+              className={styles.videoPlayer}
+            >
               <source
                 src="/assets/videos/originalVideos/gallery-hero.mp4"
                 type="video/mp4"
