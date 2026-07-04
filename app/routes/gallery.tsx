@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useMemo } from "react";
+import { useState, useCallback, useMemo, useEffect } from "react";
 import type { MetaFunction } from "@remix-run/node";
 import Layout from "../components/Layout/Layout";
 import styles from "./gallery.module.scss";
@@ -9,32 +9,37 @@ export const meta: MetaFunction = () => {
     {
       name: "description",
       content:
-        "Browse the complete photo gallery of The Aussie House Mahabalipuram. " +
-        "Premium Australian-themed beach homestay interiors, rooms, terrace views, and coastal scenery.",
-    },
-    {
-      name: "keywords",
-      content:
-        "Aussie House gallery, Mahabalipuram resort photos, beach homestay rooms, " +
-        "luxury villa gallery, beach view terrace, coastal stay images",
+        "Browse the complete photo gallery of The Aussie House Mahabalipuram.",
     },
   ];
 };
 
-// IMAGE DATA CONFIGURATION
-const TOTAL_IMAGES = 57;
+interface GalleryImage {
+  id: number;
+  src: string;
+  alt: string;
+}
 
-const GALLERY_IMAGES = Array.from({ length: TOTAL_IMAGES }, (_, i) => {
-  const num = i + 1;
-  return {
-    id: num,
-    src: `/assets/imgs/gallery/websiteImagesAussie/house-${num}.jpg.webp`,
-    alt: `The Aussie House Mahabalipuram — Property view ${num}`,
-  };
-});
+/*
+  Removed images:
+  1,2,3,4,5,7, 11,13,14,15,16
+*/
+
+const AVAILABLE_IMAGES = [
+  6, 8, 9, 10, 12, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31,
+  32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50,
+  51, 52, 53, 54, 55, 56, 57,
+];
+
+const GALLERY_IMAGES: GalleryImage[] = AVAILABLE_IMAGES.map((imageNo) => ({
+  id: imageNo,
+  src: `/assets/imgs/gallery/originalImage/house-${imageNo}.webp`,
+  alt: `The Aussie House Property View ${imageNo}`,
+}));
 
 export default function Gallery() {
   const [zoomedSrc, setZoomedSrc] = useState<string | null>(null);
+  const [videoModalOpen, setVideoModalOpen] = useState(false);
 
   const openModal = useCallback((src: string) => {
     setZoomedSrc(src);
@@ -46,175 +51,190 @@ export default function Gallery() {
 
   const nextImage = useCallback(() => {
     if (!zoomedSrc) return;
-    const currentIndex = GALLERY_IMAGES.findIndex(
-      (img) => img.src === zoomedSrc,
-    );
-    const nextIndex = (currentIndex + 1) % GALLERY_IMAGES.length;
-    setZoomedSrc(GALLERY_IMAGES[nextIndex].src);
+
+    const idx = GALLERY_IMAGES.findIndex((img) => img.src === zoomedSrc);
+
+    const next = GALLERY_IMAGES[(idx + 1) % GALLERY_IMAGES.length];
+
+    setZoomedSrc(next.src);
   }, [zoomedSrc]);
 
   const prevImage = useCallback(() => {
     if (!zoomedSrc) return;
-    const currentIndex = GALLERY_IMAGES.findIndex(
-      (img) => img.src === zoomedSrc,
-    );
-    const prevIndex =
-      (currentIndex - 1 + GALLERY_IMAGES.length) % GALLERY_IMAGES.length;
-    setZoomedSrc(GALLERY_IMAGES[prevIndex].src);
+
+    const idx = GALLERY_IMAGES.findIndex((img) => img.src === zoomedSrc);
+
+    const prev =
+      GALLERY_IMAGES[(idx - 1 + GALLERY_IMAGES.length) % GALLERY_IMAGES.length];
+
+    setZoomedSrc(prev.src);
   }, [zoomedSrc]);
 
-  // DYNAMIC COUNTER LOGIC
-  const currentCountText = useMemo(() => {
+  const currentCount = useMemo(() => {
     if (!zoomedSrc) return "";
-    const currentIndex = GALLERY_IMAGES.findIndex(
-      (img) => img.src === zoomedSrc,
-    );
-    return `${currentIndex + 1} / ${GALLERY_IMAGES.length}`;
+
+    const idx = GALLERY_IMAGES.findIndex((img) => img.src === zoomedSrc);
+
+    return `${idx + 1} / ${GALLERY_IMAGES.length}`;
   }, [zoomedSrc]);
 
-  //  KEYBOARD NAVIGATION EFFECT
   useEffect(() => {
-    if (!zoomedSrc) return;
+    const handler = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setZoomedSrc(null);
+        setVideoModalOpen(false);
+      }
 
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") closeModal();
       if (e.key === "ArrowRight") nextImage();
       if (e.key === "ArrowLeft") prevImage();
     };
 
-    document.body.style.overflow = "hidden";
-    window.addEventListener("keydown", handleKeyDown);
+    window.addEventListener("keydown", handler);
 
-    return () => {
-      document.body.style.overflow = "";
-      window.removeEventListener("keydown", handleKeyDown);
-    };
-  }, [zoomedSrc, closeModal, nextImage, prevImage]);
-
-  const handleImageError = (e: React.SyntheticEvent<HTMLImageElement>) => {
-    const img = e.currentTarget;
-    const currentSrc = img.src;
-
-    if (currentSrc.endsWith(".jpg.webp")) {
-      img.src = currentSrc.replace(".jpg.webp", ".jpg");
-    } else {
-      img.src =
-        "https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf" +
-        "?auto=format&fit=crop&w=600&q=60";
-      img.alt = "Image temporarily unavailable";
-    }
-  };
+    return () => window.removeEventListener("keydown", handler);
+  }, [nextImage, prevImage]);
 
   return (
     <Layout>
-      {/* HERO  */}
+      {/* HERO */}
       <section className={styles.hero}>
         <video
           className={styles.heroVideo}
           autoPlay
-          loop
           muted
+          loop
           playsInline
-          poster="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1920&q=80"
+          preload="metadata"
+          poster="/assets/imgs/gallery/originalImage/house-1.webp"
         >
-          <source src="/assets/videos/gallery-hero.mp4" type="video/mp4" />
+          <source
+            src="/assets/videos/originalVideos/gallery-heroTeaser.mp4"
+            type="video/mp4"
+          />
         </video>
 
         <div className={styles.heroOverlay} />
 
-        <div className="container">
-          <div className={styles.heroContent}>
-            <span className={styles.badge}>🇦🇺 Visual Heritage Tour</span>
-            <h1>Our Gallery</h1>
-            <p>
-              Explore the beautifully designed spaces, luxury beachside rooms,
-              and warm coastal interiors of The Aussie House Mahabalipuram.
-            </p>
-          </div>
+        <div className={styles.heroContent}>
+          <span className={styles.badge}>🇦🇺 Visual Heritage Tour</span>
+
+          <h1>Our Gallery</h1>
+
+          <p>
+            Explore the beautifully designed spaces, luxury beachside rooms, and
+            warm coastal interiors of The Aussie House Mahabalipuram.
+          </p>
+
+          <button
+            className={styles.watchBtn}
+            onClick={() => setVideoModalOpen(true)}
+          >
+            <span className={styles.watchIcon}>
+              <span className={styles.playTriangle}>▶</span>
+            </span>
+
+            <span className={styles.watchText}>Watch Experience</span>
+          </button>
         </div>
 
-        <div className={styles.waveContainer}>
+        <div className={styles.heroWave}>
           <svg
             viewBox="0 0 1440 120"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
             preserveAspectRatio="none"
-            className={styles.svgWave}
+            xmlns="http://www.w3.org/2000/svg"
           >
+            <defs>
+              <linearGradient
+                id="waveBrandGradient"
+                x1="0%"
+                y1="0%"
+                x2="100%"
+                y2="0%"
+              >
+                <stop offset="0%" stopColor="rgba(224, 91, 38, 0)" />
+                <stop offset="15%" stopColor="var(--color-clay)" />
+                <stop offset="50%" stopColor="rgba(255, 210, 170, 0.95)" />
+                <stop offset="85%" stopColor="var(--color-clay)" />
+                <stop offset="100%" stopColor="rgba(224, 91, 38, 0)" />
+              </linearGradient>
+            </defs>
             <path
-              d="M0,32L120,42.7C240,53,480,75,720,74.7C960,75,1200,53,1320,42.7L1440,32L1440,120L1320,120C1200,120,960,120,720,120C480,120,240,120,120,120L0,120Z"
-              fill="#e05b26"
+              fill="#f7f5f1"
+              d="
+        M0,55
+        C180,100 340,20 540,55
+        C760,95 980,120 1200,55
+        C1320,20 1400,35 1440,40
+        L1440,120
+        L0,120
+        Z
+      "
             />
             <path
-              d="M0,45L120,41.7C240,38,480,31,720,35C960,39,1200,53,1320,60.3L1440,68L1440,120L1320,120C1200,120,960,120,720,120C480,120,240,120,120,120L0,120Z"
-              fill="var(--color-sand-light)"
+              d="M0,55 C180,100 340,20 540,55 C760,95 980,120 1200,55 C1320,20 1400,35 1440,40"
+              fill="none"
+              stroke="url(#waveBrandGradient)"
+              strokeWidth="2"
+              className={styles.waveStrokePath}
             />
           </svg>
         </div>
       </section>
 
-      {/* SQUARE GRID */}
-      <section className={`section-padding ${styles.gridSection}`}>
-        <div className="container">
-          <div className={styles.sectionHeader}>
-            <h2 className="center">The Aussie House Collection</h2>
-            <p>
-              A curated showcase of our premium beachside property. Click any
-              image to view in immersive theater mode.
-            </p>
-          </div>
+      {/* GRID */}
+      <section className={styles.gridSection}>
+        <div className={styles.sectionHeader}>
+          <h2 className="center">The Aussie House Collection</h2>
 
-          <div className={styles.grid}>
-            {GALLERY_IMAGES.map((img) => (
-              <div
-                key={img.id}
-                className={styles.card}
-                onClick={() => openModal(img.src)}
-                role="button"
-                tabIndex={0}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter" || e.key === " ") {
-                    e.preventDefault();
-                    openModal(img.src);
-                  }
-                }}
-                aria-label={`View image ${img.id} in full screen`}
-              >
-                <div className={styles.aspectBox}>
-                  <img
-                    src={img.src}
-                    alt={img.alt}
-                    loading="lazy"
-                    className={styles.image}
-                    onError={handleImageError}
-                  />
-                  <div className={styles.hoverOverlay}>
-                    <span>View</span>
-                  </div>
-                </div>
+          <p>
+            A curated showcase of our premium beachside property. Click any
+            image to view in immersive theater mode.
+          </p>
+        </div>
+
+        <div className={styles.grid}>
+          {GALLERY_IMAGES.map((img) => (
+            <div
+              key={img.id}
+              className={styles.card}
+              onClick={() => openModal(img.src)}
+            >
+              <div className={styles.aspectBox}>
+                <img
+                  src={img.src}
+                  alt={img.alt}
+                  loading={img.id <= 8 ? "eager" : "lazy"}
+                  decoding="async"
+                  fetchPriority={img.id <= 8 ? "high" : "auto"}
+                  width={600}
+                  height={600}
+                  className={styles.image}
+                />
               </div>
-            ))}
-          </div>
+
+              <div className={styles.hoverOverlay}>View</div>
+            </div>
+          ))}
         </div>
       </section>
 
-      {/* SINGLE IMAGE ZOOM MODAL WITH  NAVIGATION & COUNTER */}
+      {/* IMAGE MODAL */}
       {zoomedSrc && (
         <div
           className={styles.modal}
           onClick={closeModal}
           role="dialog"
           aria-modal="true"
-          aria-label="Full screen image viewer"
         >
-          <div className={styles.counterBadge}>{currentCountText}</div>
+          <div className={styles.counterBadge}>{currentCount}</div>
 
           <button
             className={styles.closeBtn}
             onClick={closeModal}
-            aria-label="Close image viewer"
+            aria-label="Close gallery"
           >
-            ✕ Close
+            <span className={styles.closeIcon}>✕</span>
+            <span>Close</span>
           </button>
 
           <button
@@ -233,10 +253,12 @@ export default function Gallery() {
             onClick={(e) => e.stopPropagation()}
           >
             <img
+              key={zoomedSrc}
               src={zoomedSrc}
-              alt="The Aussie House — full view"
+              alt="Gallery Image"
               className={styles.modalImage}
-              onError={handleImageError}
+              loading="eager"
+              decoding="async"
             />
           </div>
 
@@ -250,6 +272,42 @@ export default function Gallery() {
           >
             ›
           </button>
+        </div>
+      )}
+
+      {/* VIDEO MODAL */}
+      {videoModalOpen && (
+        <div
+          className={styles.modal}
+          onClick={() => setVideoModalOpen(false)}
+          role="dialog"
+          aria-modal="true"
+        >
+          <button
+            className={styles.closeBtn}
+            onClick={() => setVideoModalOpen(false)}
+            aria-label="Close video"
+          >
+            <span className={styles.closeIcon}>✕</span>
+            <span>Close</span>
+          </button>
+
+          <div
+            className={styles.videoModalFrame}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <video
+              controls
+              autoPlay
+              preload="auto"
+              className={styles.videoPlayer}
+            >
+              <source
+                src="/assets/videos/originalVideos/gallery-hero.mp4"
+                type="video/mp4"
+              />
+            </video>
+          </div>
         </div>
       )}
     </Layout>
