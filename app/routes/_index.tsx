@@ -115,6 +115,9 @@ export default function Index() {
           />
         </video>
 
+        {/* HERO CINEMATIC OVERLAY */}
+        <div className={styles.heroOverlay} aria-hidden="true" />
+
         <div className="container">
           <div className={styles.heroContent}>
             <span>🇦🇺 Warm Australian Coastal Living</span>
@@ -594,59 +597,6 @@ export default function Index() {
               <Compass size={18} />
               View Full Gallery
             </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* 9. LOCATION MAP BLOCK */}
-      <section className={`section-padding ${styles.mapSection}`}>
-        <div className="container">
-          <div className={styles.mapCard}>
-            <div className="grid-2" style={{ gap: 0 }}>
-              <div className={styles.mapContent}>
-                <span>
-                  <MapPin size={16} /> Perfect Location
-                </span>
-                <h2>Find Us in Mahabalipuram</h2>
-                <p>
-                  <strong>The Aussie House Mahabalipuram</strong>
-                  <br />
-                  No 1, Mayana Salai,
-                  <br />
-                  Mahabalipuram, Tamil Nadu - 603104
-                </p>
-                <p>
-                  Our resort sits perfectly nestled in a tranquil beachside
-                  neighborhood, allowing you to sleep peacefully while keeping
-                  you just 800m away from the sandy shores and within minutes of
-                  all major UNESCO monuments and surfing points.
-                </p>
-                <a
-                  href="https://maps.google.com/?q=The+Aussie+House+Mahabalipuram"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn btn-secondary"
-                >
-                  Get Directions
-                </a>
-              </div>
-              <div
-                style={{
-                  height: "100%",
-                  minHeight: "350px",
-                  background: "#e5e3df",
-                }}
-              >
-                <iframe
-                  title="The Aussie House Location Map"
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3896.790938634898!2d80.1656731!3d12.6225434!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a53e6b72a6b2c45%3A0xe54e3d32ef364d99!2sMayana%20Salai%2C%20Mahabalipuram%2C%20Tamil%20Nadu!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"
-                  className={styles.mapEmbedContainer}
-                  allowFullScreen={true}
-                  loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
-                ></iframe>
-              </div>
-            </div>
           </div>
         </div>
       </section>

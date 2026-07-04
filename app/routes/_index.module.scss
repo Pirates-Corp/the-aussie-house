@@ -46,7 +46,23 @@
 
   pointer-events: none;
 
-  opacity: 0.95;
+  opacity: 0.82;
+}
+
+// SHOPIFY STYLE CINEMATIC OVERLAY
+.heroOverlay {
+  position: absolute;
+  inset: 0;
+
+  z-index: -1;
+
+  pointer-events: none;
+
+  background: linear-gradient(
+    to bottom,
+    rgba(5, 15, 25, 0.72),
+    rgba(5, 15, 25, 0.52)
+  );
 }
 
 .heroContent {
@@ -767,47 +783,5 @@
       transform: translateY(-3px);
       box-shadow: 0 8px 24px rgba(224, 91, 38, 0.35);
     }
-  }
-}
-
-// LOCATION / MAP CARD
-.mapSection {
-  background-color: var(--color-sand-light);
-}
-
-.mapCard {
-  background-color: var(--color-light);
-  border: 1px solid var(--color-border);
-  border-radius: var(--border-radius-lg);
-  overflow: hidden;
-  box-shadow: var(--shadow-md);
-}
-
-.mapContent {
-  padding: 3rem;
-
-  @media (max-width: 768px) {
-    padding: 2rem 1.5rem;
-  }
-
-  h3 {
-    font-size: 1.85rem;
-    margin-bottom: 1rem;
-  }
-
-  p {
-    font-size: 1rem;
-    line-height: 1.7;
-    margin-bottom: 1.5rem;
-  }
-}
-
-.mapEmbedContainer {
-  height: 450px;
-  width: 100%;
-  border: none;
-
-  @media (max-width: 768px) {
-    height: 300px;
   }
 }
