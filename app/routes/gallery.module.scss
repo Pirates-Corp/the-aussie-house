@@ -554,47 +554,126 @@
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  background: rgba(255, 255, 255, 0.06);
-  backdrop-filter: blur(18px);
-  color: white;
-  font-size: 2rem;
-  font-family: Arial, sans-serif;
-  line-height: 0.8;
-  padding-bottom: 3px;
+  z-index: 10005;
+  flex-shrink: 0;
+
+  width: 58px;
+  height: 58px;
+
   display: flex;
   align-items: center;
   justify-content: center;
-  cursor: pointer;
-  z-index: 10002;
-  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), background 0.3s ease,
-    border-color 0.3s ease, box-shadow 0.3s ease, color 0.3s ease;
 
+  border-radius: 50%;
+
+  cursor: pointer;
+
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+  appearance: none;
   user-select: none;
+
+  font-size: 2rem;
+  font-family: Arial, sans-serif;
+  line-height: 1;
+
+  color: var(--color-teal);
+
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.96) 0%,
+    rgba(248, 249, 250, 0.93) 55%,
+    rgba(236, 239, 242, 0.94) 100%
+  );
+
+  border: 1px solid rgba(255, 255, 255, 0.95);
+
+  backdrop-filter: blur(20px);
+
+  box-shadow: 0 12px 30px rgba(11, 34, 44, 0.14),
+    inset 0 2px 0 rgba(255, 255, 255, 0.95),
+    inset 0 -3px 8px rgba(0, 0, 0, 0.05);
+
+  transition: transform 0.35s ease, background 0.35s ease, color 0.35s ease,
+    border-color 0.35s ease, box-shadow 0.35s ease;
+}
+
+.navBtn::before {
+  content: "";
+
+  position: absolute;
+
+  left: 7px;
+  right: 7px;
+
+  top: 6px;
+
+  height: 38%;
+
+  border-radius: 999px;
+
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.38),
+    rgba(255, 255, 255, 0)
+  );
+
+  pointer-events: none;
+}
+
+.navBtn::after {
+  content: "";
+
+  position: absolute;
+  inset: -2px;
+
+  border-radius: inherit;
+
+  opacity: 0;
+
+  box-shadow: 0 0 0 2px rgba(224, 91, 38, 0.2), 0 0 24px rgba(224, 91, 38, 0.28);
+
+  transition: opacity 0.28s ease;
+
+  pointer-events: none;
 }
 
 // NAV
 .navBtn:hover {
-  background: rgba(255, 255, 255, 0.16);
-  border-color: var(--color-clay);
-  color: var(--color-clay);
   transform: translateY(-50%) scale(1.08);
-  box-shadow: 0 0 30px rgba(224, 91, 38, 0.25);
+
+  color: var(--color-clay);
+
+  border-color: rgba(224, 91, 38, 0.35);
+
+  background: linear-gradient(180deg, #ffffff, #fff6f1);
+
+  box-shadow: 0 18px 38px rgba(11, 34, 44, 0.18),
+    0 0 22px rgba(224, 91, 38, 0.18), inset 0 2px 0 rgba(255, 255, 255, 0.95);
+}
+
+.navBtn:hover::after {
+  opacity: 1;
 }
 
 .navBtn:active {
-  transform: translateY(-50%) scale(0.94);
+  transform: translateY(-50%) scale(0.95);
+}
+
+.navBtn:focus,
+.navBtn:focus-visible {
+  outline: none;
+  box-shadow: 0 12px 30px rgba(11, 34, 44, 0.14),
+    inset 0 2px 0 rgba(255, 255, 255, 0.95),
+    inset 0 -3px 8px rgba(0, 0, 0, 0.05);
 }
 
 .prevBtn {
-  left: 32px;
+  left: max(18px, calc(50% - 620px));
 }
 
 .nextBtn {
-  right: 32px;
+  right: max(18px, calc(50% - 620px));
 }
 
 /* FRAME */
@@ -610,6 +689,8 @@
   box-shadow: none;
   animation: framePop 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   will-change: transform, opacity;
+  position: relative;
+  z-index: 2;
 }
 
 /* IMAGE */
@@ -657,9 +738,10 @@
 
 @media (max-width: 768px) {
   .navBtn {
-    width: 44px;
-    height: 44px;
-    font-size: 1.9rem;
+    width: 50px;
+    height: 50px;
+
+    font-size: 1.8rem;
     font-family: Arial, sans-serif;
     line-height: 0.8;
     padding-bottom: 3px;
@@ -669,11 +751,11 @@
   }
 
   .prevBtn {
-    left: 12px;
+    left: 8px;
   }
 
   .nextBtn {
-    right: 12px;
+    right: 8px;
   }
 
   .closeBtn {
@@ -686,22 +768,37 @@
   }
 
   .modalFrame {
-    width: 95%;
+    width: calc(100% - 90px);
+    max-width: 95%;
     border-radius: 18px;
   }
 }
 
 @media (max-width: 576px) {
   .navBtn {
-    width: 40px;
-    height: 40px;
-    font-size: 1.7rem;
+    width: 44px;
+    height: 44px;
+
+    font-size: 1.55rem;
     font-family: Arial, sans-serif;
     line-height: 0.8;
     padding-bottom: 3px;
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+
+  .prevBtn {
+    left: 6px;
+  }
+
+  .nextBtn {
+    right: 6px;
+  }
+
+  .modalFrame {
+    width: calc(100% - 70px);
+    max-width: 94%;
   }
 }
 
