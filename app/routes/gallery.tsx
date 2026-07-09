@@ -22,13 +22,13 @@ interface GalleryImage {
 
 /*
   Removed images:
-  1,2,3,4,5,7, 11,13,14,15,16
+  1,2,3,4,5,7,11,12,13,14,15,16,36,40,42,46
 */
 
 const AVAILABLE_IMAGES = [
-  6, 8, 9, 10, 12, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31,
-  32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50,
-  51, 52, 53, 54, 55, 56, 57,
+  8, 6, 9, 10, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32,
+  33, 34, 35, 37, 38, 39, 41, 43, 44, 45, 47, 48, 49, 50, 51, 52, 53, 54, 55,
+  56, 57,
 ];
 
 const GALLERY_IMAGES: GalleryImage[] = AVAILABLE_IMAGES.map((imageNo) => ({
@@ -97,32 +97,22 @@ export default function Gallery() {
   return (
     <Layout>
       {/* HERO */}
-      <section className={styles.hero}>
-        <video
-          className={styles.heroVideo}
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="metadata"
-          poster="/assets/imgs/gallery/originalImage/house-1.webp"
-        >
-          <source
-            src="/assets/videos/originalVideos/gallery-heroTeaser.mp4"
-            type="video/mp4"
-          />
-        </video>
-
+      <section
+        className={styles.hero}
+        style={{
+          backgroundImage:
+            "url('/assets/imgs/gallery/originalImage/heroCoverImg.png')",
+        }}
+      >
         <div className={styles.heroOverlay} />
 
         <div className={styles.heroContent}>
-          <span className={styles.badge}>🇦🇺 Visual Heritage Tour</span>
+          <span className={styles.badge}>🇦🇺 Explore The Property</span>
 
-          <h1>Our Gallery</h1>
+          {/* <h1>Our Gallery</h1> */}
 
           <p>
-            Explore the beautifully designed spaces, luxury beachside rooms, and
-            warm coastal interiors of The Aussie House Mahabalipuram.
+            Discover every space, every view, and every detail before your stay.
           </p>
 
           <button
@@ -178,6 +168,36 @@ export default function Gallery() {
               className={styles.waveStrokePath}
             />
           </svg>
+        </div>
+      </section>
+
+      {/* GALLERY EXPERIENCE */}
+      <section className={styles.videoSection}>
+        <div className={styles.videoContent}>
+          <h2 className={styles.videoHeading}>
+            Visual <span>Heritage</span> Tour
+          </h2>
+
+          <p>
+            Take a cinematic walkthrough of The Aussie House Mahabalipuram and
+            experience our premium beachside stay before exploring the complete
+            gallery below.
+          </p>
+
+          <div className={styles.videoWrapper}>
+            <video
+              className={styles.galleryVideo}
+              controls
+              playsInline
+              preload="metadata"
+              poster="/assets/imgs/gallery/originalImage/videoCoverImg.png"
+            >
+              <source
+                src="/assets/videos/originalVideos/gallery-hero.mp4"
+                type="video/mp4"
+              />
+            </video>
+          </div>
         </div>
       </section>
 

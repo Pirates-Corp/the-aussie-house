@@ -1,17 +1,12 @@
 .hero {
   position: relative;
-  height: 78vh;
+  height: 89vh;
   overflow: hidden;
-}
-
-.heroVideo {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transform: translateZ(0);
-  backface-visibility: hidden;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: #0b222c;
+  isolation: isolate;
 }
 
 .heroOverlay {
@@ -30,18 +25,21 @@
   height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-end;
+  padding-bottom: clamp(140px, 16vh, 190px);
+  // padding-top: 30vh;
   align-items: center;
   color: white;
   gap: 14px;
 
   .badge {
     font-family: var(--font-headings);
-    font-size: 1rem;
-    font-weight: 700;
+    font-size: clamp(0.72rem, 1vw, 0.9rem);
+
+    font-weight: 600;
     color: var(--color-sand);
     text-transform: uppercase;
-    letter-spacing: 3px;
+    letter-spacing: 0.24em;
     display: inline-block;
     margin-bottom: 1rem;
     border-bottom: 2px solid #e05b26;
@@ -50,12 +48,14 @@
 
   h1 {
     color: var(--color-light);
-    font-size: clamp(2.8rem, 6vw, 4.2rem);
-    font-weight: 800;
-    line-height: 1.1;
+    font-size: clamp(2.3rem, 5vw, 3.9rem);
+    font-weight: 700;
+    line-height: 1.08;
     margin-bottom: 0.85rem;
     text-shadow: 0 4px 20px rgba(11, 34, 44, 0.6);
-    letter-spacing: -1px;
+    letter-spacing: -0.03em;
+    text-wrap: balance;
+    max-width: 12ch;
   }
 
   p {
@@ -78,7 +78,7 @@
   left: 0;
   right: 0;
   bottom: -1px;
-  height: 95px;
+  height: clamp(55px, 8vw, 95px);
   overflow: visible;
   z-index: 20;
   pointer-events: none;
@@ -164,10 +164,15 @@
 @media (max-width: 992px) {
   .heroContent {
     gap: 12px;
+    padding: 0 22px 120px;
+  }
+
+  .hero {
+    height: 81vh;
   }
 
   .heroContent p {
-    max-width: 500px;
+    max-width: 560px;
   }
 }
 
@@ -175,13 +180,19 @@
   .heroContent {
     gap: 10px;
     max-width: 100%;
-    padding: 0 20px;
+    padding: 0 18px 92px;
+    // padding: 0 20px;
+    // padding-top: 4vh;
+  }
+
+  .hero {
+    height: 70vh;
   }
 
   .heroContent p {
     max-width: 100%;
-    font-size: 1rem;
-    line-height: 1.65;
+    font-size: 0.95rem;
+    line-height: 1.6;
   }
 
   .badge {
@@ -193,17 +204,7 @@
   }
 }
 
-@media (max-width: 992px) {
-  .heroWave {
-    height: 75px;
-  }
-}
-
 @media (max-width: 576px) {
-  .hero {
-    height: 72vh;
-  }
-
   .heroWave {
     height: 55px;
   }
@@ -735,5 +736,118 @@
 
   .videoPlayer {
     max-height: 80vh;
+  }
+}
+
+/* GALLERY EXPERIENCE */
+.videoSection {
+  padding: 40px 20px 70px;
+}
+
+.videoContent {
+  max-width: 1180px;
+  margin: 0 auto;
+  text-align: center;
+
+  h2 {
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 800;
+    color: var(--color-teal);
+    margin-bottom: 1rem;
+    letter-spacing: -0.5px;
+  }
+
+  h2 span {
+    color: var(--color-clay);
+  }
+
+  p {
+    max-width: 700px;
+    margin: 0 auto 2.5rem;
+    line-height: 1.75;
+    color: var(--color-gray);
+    font-size: clamp(1rem, 1.8vw, 1.12rem);
+  }
+}
+
+.videoHeading {
+  position: relative;
+
+  &::after {
+    display: none !important;
+    content: none !important;
+  }
+
+  span {
+    color: var(--color-clay);
+  }
+}
+
+.videoWrapper {
+  overflow: hidden;
+
+  border-radius: 24px;
+
+  background: #000;
+
+  box-shadow: 0 18px 55px rgba(0, 0, 0, 0.18);
+}
+
+.galleryVideo {
+  display: block;
+
+  width: 100%;
+
+  height: auto;
+
+  aspect-ratio: 16 / 9;
+
+  object-fit: cover;
+}
+
+@media (max-width: 768px) {
+  .videoSection {
+    padding: 9px 16px 60px;
+  }
+
+  .videoWrapper {
+    border-radius: 18px;
+  }
+}
+
+@media (max-width: 576px) {
+  .heroContent {
+    gap: 10px;
+  }
+
+  .heroContent .badge {
+    font-size: 0.72rem;
+    letter-spacing: 0.22em;
+  }
+
+  .heroContent h1 {
+    font-size: 2rem;
+    font-weight: 650;
+    line-height: 1.12;
+  }
+
+  .heroContent p {
+    font-size: 0.95rem;
+    line-height: 1.65;
+    max-width: 320px;
+  }
+
+  .videoContent h2,
+  .sectionHeader h2 {
+    font-size: 1.8rem;
+    font-weight: 549;
+    line-height: 1.2;
+  }
+
+  .videoContent p,
+  .sectionHeader p {
+    font-size: 0.95rem;
+    line-height: 1.65;
+    max-width: 320px;
   }
 }
