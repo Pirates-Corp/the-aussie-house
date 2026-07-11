@@ -320,10 +320,10 @@ export default function Layout({ children }: LayoutProps) {
             <div className={styles.footerMapCard}>
               <iframe
                 title="The Aussie House Location Map"
-                src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d235.41592943895512!2d80.19659227895094!3d12.622208709934!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e1!3m2!1sen!2sin!4v1783151943011!5m2!1sen!2sin"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3928.880829261792!2d80.196178!3d12.6221271!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a53ad96e8b4449f%3A0x68eccf499fa098ee!2sThe%20Aussie%20House!5e1!3m2!1sen!2sin!4v1783758360256!5m2!1sen!2sin"
                 loading="lazy"
                 allowFullScreen
-                referrerPolicy="no-referrer-when-downgrade"
+                referrerPolicy="strict-origin-when-cross-origin"
               />
             </div>
           </div>
