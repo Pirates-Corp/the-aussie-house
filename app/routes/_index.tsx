@@ -7,7 +7,7 @@ import seafoodImg from "../assets/imgs/seafood.jpg";
 import shoreTemple from "../assets/imgs/shore-temple.jpeg";
 
 import * as Lucide from "lucide-react";
-import { FaInstagram , FaFacebook } from "react-icons/fa";
+import { FaInstagram, FaFacebook } from "react-icons/fa";
 const {
   MapPin,
   Sun,
@@ -24,7 +24,7 @@ const {
   Plane,
   Key,
   Star,
-  Compass
+  Compass,
 } = Lucide;
 
 // Carousel images from the property gallery
@@ -446,7 +446,7 @@ export default function Index() {
           <div className={styles.founderCard}>
             <div className={styles.founderImageContainer}>
               <img
-                src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=400&q=80"
+                src="/assets/imgs/founderImg/hostPictureAussie.jpeg"
                 alt="Robinson - Founder of The Aussie House Resort Mahabalipuram"
               />
             </div>

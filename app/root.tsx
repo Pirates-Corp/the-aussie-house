@@ -2,7 +2,6 @@ import React from "react";
 import { Links, Meta, Outlet, Scripts } from "@remix-run/react";
 import "./styles/global.scss";
 
-
 export default function App() {
   return (
     <html>
@@ -10,8 +9,24 @@ export default function App() {
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <title>The Aussie House – Luxury Beach Homestay | Mahabalipuram</title>
-        <link rel="icon" href="data:image/x-icon;base64,AA" />
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-JJG9Q2QQLK"></script>
+
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="32x32"
+          href="/assets/imgs/aussieLogo/favicon.png"
+        />
+
+        <link
+          rel="apple-touch-icon"
+          sizes="180x180"
+          href="/assets/imgs/aussieLogo/favicon.png"
+        />
+
+        <script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=G-JJG9Q2QQLK"
+        ></script>
         <script
           dangerouslySetInnerHTML={{
             __html: `
