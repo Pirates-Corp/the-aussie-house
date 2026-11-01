@@ -4,7 +4,10 @@
       "name": "Aussie_House_Frontend_Prod",
       "script": "npm",
       "interpreter": "none",
-      "args": "run start:mainbranch"
+      "args": "run start:mainbranch",
+      "autorestart": true,
+      "max_restarts": "5",
+      "restart_delay": "5000"
     }
   ]
 }
