@@ -195,7 +195,7 @@ export default function Contact() {
       <section className={styles.contactMap}>
         <iframe 
           title="The Aussie House Location Map detail"
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3896.790938634898!2d80.1656731!3d12.6225434!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a53e6b72a6b2c45%3A0xe54e3d32ef364d99!2sMayana%20Salai%2C%20Mahabalipuram%2C%20Tamil%20Nadu!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"
+          src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d235.41592943895512!2d80.19659227895094!3d12.622208709934!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e1!3m2!1sen!2sin!4v1783151943011!5m2!1sen!2sin"
           allowFullScreen={true}
           loading="lazy"
           referrerPolicy="no-referrer-when-downgrade"

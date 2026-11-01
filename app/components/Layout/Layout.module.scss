@@ -47,7 +47,6 @@
   display: block;
 }
 
-
 .FTlogoImg {
   height: 8rem;
   width: 8rem;
@@ -83,7 +82,7 @@
     letter-spacing: 0.5px;
 
     &::after {
-      content: '';
+      content: "";
       position: absolute;
       bottom: 0;
       left: 0;
@@ -93,7 +92,8 @@
       transition: var(--transition-smooth);
     }
 
-    &:hover, &.active {
+    &:hover,
+    &.active {
       color: var(--color-clay);
       &::after {
         width: 100%;
@@ -214,7 +214,7 @@
   border-top: 6px solid var(--color-clay);
   margin-top: auto;
   position: relative;
-  
+
   @media (max-width: 768px) {
     padding: 50px 0 100px; // extra space for sticky bottom cta
   }
@@ -229,7 +229,7 @@
     padding-bottom: 0.5rem;
 
     &::after {
-      content: '';
+      content: "";
       position: absolute;
       bottom: 0;
       left: 0;
@@ -276,24 +276,114 @@
 
 .socialLinks {
   display: flex;
+  align-items: center;
   gap: 1rem;
+}
 
-  a {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 38px;
-    height: 38px;
-    border-radius: 50%;
-    background-color: rgba(255, 255, 255, 0.1);
-    font-size: 1.1rem;
-    color: var(--color-light);
+.socialIcon {
+  position: relative;
 
-    &:hover {
-      background-color: var(--color-clay);
-      color: var(--color-light);
-      transform: translateY(-3px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 52px;
+  height: 52px;
+
+  border-radius: 18px;
+
+  color: rgba(255, 255, 255, 0.9);
+
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.08),
+    rgba(255, 255, 255, 0.03)
+  );
+
+  border: 1px solid rgba(255, 255, 255, 0.12);
+
+  backdrop-filter: blur(12px);
+
+  overflow: hidden;
+
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.35s ease, border-color 0.35s ease, background 0.35s ease;
+
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.18);
+
+  svg {
+    position: relative;
+    z-index: 2;
+    transition: transform 0.35s ease;
+  }
+
+  &::before {
+    content: "";
+
+    position: absolute;
+    inset: 0;
+
+    background: linear-gradient(
+      135deg,
+      rgba(234, 143, 82, 0.25),
+      rgba(255, 194, 120, 0.15)
+    );
+
+    opacity: 0;
+
+    transition: opacity 0.35s ease;
+  }
+
+  &:hover {
+    transform: translateY(-6px) scale(1.05);
+
+    border-color: rgba(234, 143, 82, 0.6);
+
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.25),
+      0 0 20px rgba(234, 143, 82, 0.25);
+
+    color: var(--color-sand);
+
+    &::before {
+      opacity: 1;
     }
+
+    svg {
+      transform: scale(1.15) rotate(6deg);
+    }
+  }
+
+  &:active {
+    transform: translateY(-2px) scale(0.98);
+  }
+
+  /* PREMIUM SHIMMER EFFECT */
+  &::after {
+    content: "";
+
+    position: absolute;
+
+    top: -100%;
+    left: -100%;
+
+    width: 200%;
+    height: 200%;
+
+    background: linear-gradient(
+      120deg,
+      transparent,
+      rgba(255, 255, 255, 0.12),
+      transparent
+    );
+
+    transition: 0.7s;
+
+    z-index: 1;
+  }
+
+  &:hover::after {
+    top: 100%;
+    left: 100%;
   }
 }
 
@@ -365,6 +455,90 @@
 .otaIcon {
   margin-right: 0.75rem;
   font-size: 1.1rem;
+}
+
+//  FOOTER MAP
+.footerMapSection {
+  margin-top: 4rem;
+  margin-bottom: 2rem;
+}
+
+.footerMapHeader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.7rem;
+
+  margin-bottom: 1.5rem;
+
+  color: var(--color-sand);
+
+  font-family: var(--font-headings);
+  font-size: 1.15rem;
+  font-weight: 700;
+
+  letter-spacing: 0.5px;
+}
+
+.footerMapCard {
+  position: relative;
+
+  overflow: hidden;
+
+  border-radius: 24px;
+
+  border: 1px solid rgba(255, 255, 255, 0.12);
+
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.06),
+    rgba(255, 255, 255, 0.03)
+  );
+
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+
+  transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
+
+  iframe {
+    display: block;
+
+    width: 100%;
+
+    height: 360px;
+
+    border: none;
+
+    filter: grayscale(0.12) saturate(1.05) contrast(1.05);
+
+    transition: transform 0.6s ease, filter 0.6s ease;
+  }
+
+  &:hover {
+    transform: translateY(-6px);
+
+    border-color: rgba(234, 143, 82, 0.45);
+
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.35),
+      0 0 30px rgba(234, 143, 82, 0.12);
+
+    iframe {
+      transform: scale(1.02);
+
+      filter: grayscale(0) saturate(1.15) contrast(1.08);
+    }
+  }
+
+  &:active {
+    transform: scale(0.995);
+  }
+
+  @media (max-width: 768px) {
+    border-radius: 18px;
+
+    iframe {
+      height: 260px;
+    }
+  }
 }
 
 .footerBottom {
